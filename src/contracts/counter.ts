@@ -1,14 +1,14 @@
 import { Contract, ContractProvider, Sender, Address, Cell, contractAddress, beginCell } from "@ton/core";
 
-export default class Counter implements Contract {
+export default class NftCollection implements Contract {
 
-   static createForDeploy(code: Cell, initialCounterValue: number): Counter {
+   static createForDeploy(code: Cell, initialCounterValue: number): NftCollection {
       const data = beginCell()
          .storeUint(initialCounterValue, 64)
          .endCell();
       const workchain = 0; // deploy to workchain 0
       const address = contractAddress(workchain, { code, data });
-      return new Counter(address, { code, data });
+      return new NftCollection(address, { code, data });
    }
 
    constructor(readonly address: Address, readonly init?: { code: Cell, data: Cell }) { }
@@ -25,6 +25,15 @@ export default class Counter implements Contract {
          .storeUint(1, 32) // op (op #1 = increment)
          .storeUint(0, 64) // query id
          .endCell();
+      await provider.internal(via, {
+         value: "0.002", // send 0.002 TON for gas
+         body: messageBody
+      });
+   }
+
+
+   async sendWhitelist(provider: ContractProvider, via: Sender) {
+      const messageBody = beginCell().storeStringTail("AddToWhitelist").storeAddress(Address.parse('EQDSjuCyZ_w_79JSNJ0YopGXpZGyP9HIYDSxBrelcTRyqYZH')).endCell();
       await provider.internal(via, {
          value: "0.002", // send 0.002 TON for gas
          body: messageBody
