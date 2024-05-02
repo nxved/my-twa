@@ -5,7 +5,7 @@ import { useCounterContract } from './hooks/useCounterContract';
 
 function App() {
   const { connected } = useTonConnect();
-  const { value, address, sendWhitelist } = useCounterContract();
+  const { value, address, sendMint } = useCounterContract();
 
   return (
     <div className='App'>
@@ -25,7 +25,7 @@ function App() {
         <a
           className={`Button ${connected ? 'Active' : 'Disabled'}`}
           onClick={() => {
-            sendWhitelist();
+            sendMint();
           }}
         >
           Increment

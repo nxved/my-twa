@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Counter from '../contracts/counter';
+import TestContract from '../contracts/counter';
 import { useTonClient } from './useTonClient';
 import { useAsyncInitialize } from './useAsyncInitialize';
 import { useTonConnect } from './useTonConnect';
@@ -14,29 +14,29 @@ export function useCounterContract() {
 
    const counterContract = useAsyncInitialize(async () => {
       if (!client) return;
-      const contract = new Counter(
-         Address.parse('EQDbRYKGwtiT5DNZAodSaTg-T974Jm71e2EvdzkaOByfzwzK') // replace with your address from tutorial 2 step 8
+      const contract = new TestContract(
+         Address.parse('kQDiDPSQvkssj9EtqlJqQHV1Mnh8jUN79Tj-vjLYp60q181O') // replace with your address from tutorial 2 step 8
       );
-      return client.open(contract) as OpenedContract<Counter>;
+      return client.open(contract) as OpenedContract<TestContract>;
    }, [client]);
 
-   useEffect(() => {
-      async function getValue() {
-         if (!counterContract) return;
-         setVal(null);
-         const val = await counterContract.getCounter();
-         setVal(val.toString());
-         await sleep(5000); // sleep 5 seconds and poll value again
-         getValue();
-      }
-      getValue();
-   }, [counterContract]);
+   // useEffect(() => {
+   //    async function getValue() {
+   //       if (!counterContract) return;
+   //       setVal(null);
+   //       const val = await counterContract.getCounter();
+   //       setVal(val.toString());
+   //       await sleep(5000); // sleep 5 seconds and poll value again
+   //       getValue();
+   //    }
+   //    getValue();
+   // }, [counterContract]);
 
    return {
       value: val,
       address: counterContract?.address.toString(),
-      sendWhitelist: () => {
-         return counterContract?.sendWhitelist(sender);
+      sendMint: () => {
+         return counterContract?.sendMint(sender);
       },
    };
 }
