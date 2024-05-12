@@ -8,7 +8,7 @@ export default class TestContract implements Contract {
          .storeUint(initialCounterValue, 64)
          .endCell();
       const workchain = 0; // deploy to workchain 0
-      const address = Address.parse("kQDiDPSQvkssj9EtqlJqQHV1Mnh8jUN79Tj-vjLYp60q181O");
+      const address = Address.parse("EQC3bD7V2jEa4DOmwq6Bdso-Z-DQk2BJfE_y8c8mGgz87f_6");
       return new TestContract(address, { code, data });
    }
 
@@ -29,6 +29,7 @@ export default class TestContract implements Contract {
          body: messageBody
       });
    }
+
    async sendIncrement(provider: ContractProvider, via: Sender) {
       const messageBody = beginCell()
          .storeUint(1, 32) // op (op #1 = increment)

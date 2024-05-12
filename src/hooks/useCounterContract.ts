@@ -15,7 +15,7 @@ export function useCounterContract() {
    const counterContract = useAsyncInitialize(async () => {
       if (!client) return;
       const contract = new TestContract(
-         Address.parse('kQDiDPSQvkssj9EtqlJqQHV1Mnh8jUN79Tj-vjLYp60q181O') // replace with your address from tutorial 2 step 8
+         Address.parse('EQC3bD7V2jEa4DOmwq6Bdso-Z-DQk2BJfE_y8c8mGgz87f_6') // replace with your address from tutorial 2 step 8
       );
       return client.open(contract) as OpenedContract<TestContract>;
    }, [client]);
@@ -36,7 +36,9 @@ export function useCounterContract() {
       value: val,
       address: counterContract?.address.toString(),
       sendMint: () => {
-         return counterContract?.sendMint(sender);
+         const tx = counterContract?.sendMint(sender);
+         console.log(tx)
+         return tx;
       },
    };
 }

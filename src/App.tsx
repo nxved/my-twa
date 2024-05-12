@@ -13,14 +13,14 @@ function App() {
         <TonConnectButton />
 
         <div className='Card'>
-          <b>Counter Address</b>
+          <b>Contract Address</b>
           <div className='Hint'>{address?.slice(0, 30) + '...'}</div>
         </div>
 
-        <div className='Card'>
+        {/* <div className='Card'>
           <b>Counter Value</b>
           <div>{value ?? 'Loading...'}</div>
-        </div>
+        </div> */}
 
         <a
           className={`Button ${connected ? 'Active' : 'Disabled'}`}
@@ -28,7 +28,7 @@ function App() {
             sendMint();
           }}
         >
-          Increment
+          Mint
         </a>
       </div>
     </div>
