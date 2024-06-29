@@ -175,6 +175,7 @@ function App() {
     //   return false;
     // }
   };
+
   const createTransactionJetton = async () => {
     const newTransactionId = uuidv4();
     setTransactionIdJetton(newTransactionId);

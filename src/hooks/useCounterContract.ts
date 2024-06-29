@@ -4,11 +4,16 @@ import { useTonClient } from './useTonClient';
 import { useAsyncInitialize } from './useAsyncInitialize';
 import { useTonConnect } from './useTonConnect';
 import { Address, OpenedContract } from '@ton/core';
+import { useTonConnectUI } from '@tonconnect/ui-react';
+
+
 
 export function useCounterContract() {
    const client = useTonClient();
    const [val, setVal] = useState<null | string>();
    const { sender } = useTonConnect();
+   const [tonConnectUI] = useTonConnectUI();
+
 
    const sleep = (time: number) => new Promise((resolve) => setTimeout(resolve, time));
 
@@ -31,7 +36,6 @@ export function useCounterContract() {
    //    }
    //    getValue();
    // }, [counterContract]);
-
    return {
       value: val,
       address: counterContract?.address.toString(),
